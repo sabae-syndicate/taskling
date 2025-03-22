@@ -1,0 +1,12 @@
+version: "3.8"
+services:
+  backend:
+    build:
+      context: .
+      target: backend
+    command: pnpm run --filter=backend start
+    volumes:
+      - /app/backend/node_modules/
+      - ./backend:/app/backend
+    ports:
+      - "8000:8000"
