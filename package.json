@@ -1,0 +1,10 @@
+{
+  "name": "taskling",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Nurture your tasks!",
+  "scripts": {
+    "launch": "docker compose down && docker compose build && docker compose up"
+  },
+  "author": "Sabae Syndicate"
+}
