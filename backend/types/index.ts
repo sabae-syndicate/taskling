@@ -1,3 +1,6 @@
 // Barrel export file for organization
+
+export * as Errors from "./errors";
 export { HttpStatusCodes } from "./http";
-export { type IValidationErrFormat, RouteError, ValidationErr } from "./errors";
+
+export { User } from "./users";

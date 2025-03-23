@@ -1,3 +1,5 @@
+import { apiReference } from "@scalar/express-api-reference";
+import cors from "cors";
 import express, {
 	type Request,
 	type Response,
@@ -6,14 +8,18 @@ import express, {
 import helmet from "helmet";
 import morgan from "morgan";
 
-import BaseRouter from "./routes";
-import { RouteError } from "./types";
+import { RegisterRoutes } from "./routes/routes";
+import { Errors } from "./types";
 
+const path = require("node:path");
 const app = express();
 
-// Basic middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// Configure middleware
+app.use(
+	cors({
+		origin: ["localhost:3000"],
+	}),
+);
 
 // Show routes called in console during development
 if (process.env.ENVIRONMENT === "dev") {
@@ -28,15 +34,29 @@ if (process.env.ENVIRONMENT === "dev") {
 	);
 }
 
-// Add APIs, must be after middleware
-app.use("/", BaseRouter);
+// Add all routes bundled by tsoa
+// Note: generate routes.ts with `pnpm --filter=backend generate`
+RegisterRoutes(app);
+
+// Add API documentation via Scalar
+app.use("/api/openapi.json", express.static(path.resolve("dist/openapi.json")));
+app.use("/api/scalar.js", express.static("node_modules/@scalar/api-reference/dist/browser/standalone.js"));
+app.use(
+	"/api/docs",
+	apiReference({
+		theme: "deepSpace",
+		url: "/api/openapi.json",
+		cdn: "/api/scalar.js",
+		proxyUrl: "localhost:3000",
+	}),
+);
 
 // Add error handler
 app.use((err: Error, _: Request, res: Response, next: NextFunction) => {
 	if (process.env.ENVIRONMENT === "dev") {
 		console.error(err);
 	}
-	if (err instanceof RouteError) {
+	if (err instanceof Errors.RouteError) {
 		const status = err.status;
 		res.status(status).json({ error: err.message });
 	}
