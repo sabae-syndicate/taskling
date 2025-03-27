@@ -40,7 +40,12 @@ RegisterRoutes(app);
 
 // Add API documentation via Scalar
 app.use("/api/openapi.json", express.static(path.resolve("dist/openapi.json")));
-app.use("/api/scalar.js", express.static("node_modules/@scalar/api-reference/dist/browser/standalone.js"));
+app.use(
+	"/api/scalar.js",
+	express.static(
+		"node_modules/@scalar/api-reference/dist/browser/standalone.js",
+	),
+);
 app.use(
 	"/api/docs",
 	apiReference({
