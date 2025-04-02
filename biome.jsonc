@@ -1,0 +1,17 @@
+{
+  "$schema": "./node_modules/.pnpm/@biomejs+biome@1.9.4/node_modules/@biomejs/biome/configuration_schema.json",
+  "javascript": {
+    "parser": {
+      // tsoa uses parameter decorators, so allow those through
+      "unsafeParameterDecoratorsEnabled": true
+    }
+  },
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  },
+  "files": {
+    "ignore": ["package.json", "pnpm-lock.yaml", "pnpm-workspace.yaml"]
+  }
+}
