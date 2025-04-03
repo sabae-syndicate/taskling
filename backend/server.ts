@@ -21,10 +21,10 @@ app.use(
 	}),
 );
 
-// Show routes called in console during development
 if (process.env.ENVIRONMENT === "dev") {
+	// Log routes called during development
 	app.use(morgan("dev"));
-} else if (process.env.ENVIRONMENT === "production") {
+} else {
 	// When ready to deploy, configure helmet
 	// https://helmetjs.github.io/
 	app.use(

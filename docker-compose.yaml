@@ -10,3 +10,5 @@ services:
       - ./backend:/app/backend
     ports:
       - "8000:8000"
+    environment:
+      - ENVIRONMENT=${ENV}
