@@ -1,5 +1,18 @@
+volumes:
+  database_volume:
 
 services:
+  db:
+    image: postgres:17.4
+    volumes:
+      - database_volume:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    ports:
+      - 15432:5432
+
   backend:
     image: node:20
     working_dir: /app
