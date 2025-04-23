@@ -4,7 +4,8 @@
   "version": "0.0.0",
   "description": "Nurture your tasks!",
   "scripts": {
-    "launch": "pnpm i && docker compose down && docker compose build && docker compose up"
+    "launch": "pnpm i && docker compose down && docker compose build && docker compose up",
+    "new-migration": "pnpm --filter=backend migrate create"
   },
   "author": "Sabae Syndicate"
 }

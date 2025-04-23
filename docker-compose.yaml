@@ -15,18 +15,28 @@ services:
       - PGPORT=${DB_PORT}
     ports:
       - 15433:${DB_PORT}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d ${DB_NAME} -U ${DB_USER}"]
+      interval: 2s
+      timeout: 5s
+      retries: 5
 
   backend:
     build:
       context: .
       target: backend
     command: pnpm run --filter=backend start
+    depends_on:
+      db:
+        condition: service_healthy
     volumes:
       - /app/backend/node_modules/
       - ./backend:/app/backend
     ports:
       - 8000:8000
     env_file: .env
+    environment:
+      - DATABASE_URL=postgres://${DB_USER}:${DB_PASS}@${DB_HOST}:${DB_PORT}/${DB_NAME}
 
   frontend:
     build:
