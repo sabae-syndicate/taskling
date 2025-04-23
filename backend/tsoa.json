@@ -1,22 +1,22 @@
 {
-  "entryFile": "index.ts",
-  "noImplicitAdditionalProperties": "throw-on-extras",
-  "controllerPathGlobs": ["routes/**/*.ts"],
-  "spec": {
-    "name": "Taskling API",
-    "contact": {
-      "name": "Sabae Syndicate",
-      "url": "https://github.com/sabae-syndicate/taskling"
-    },
-    "basePath": "/api",
-    "outputDirectory": "dist",
-    "specFileBaseName": "openapi",
-    "specVersion": 3
-  },
-  "schemes": ["http"],
-  "routes": {
-    "basePath": "/api",
-    "routesDir": "routes",
-    "noWriteIfUnchanged": true
-  }
+	"entryFile": "index.ts",
+	"noImplicitAdditionalProperties": "throw-on-extras",
+	"controllerPathGlobs": ["routes/**/*.ts"],
+	"spec": {
+		"name": "Taskling API",
+		"contact": {
+			"name": "Sabae Syndicate",
+			"url": "https://github.com/sabae-syndicate/taskling"
+		},
+		"basePath": "/api",
+		"outputDirectory": "dist",
+		"specFileBaseName": "openapi",
+		"specVersion": 3
+	},
+	"schemes": ["http"],
+	"routes": {
+		"basePath": "/api",
+		"routesDir": "routes",
+		"noWriteIfUnchanged": true
+	}
 }

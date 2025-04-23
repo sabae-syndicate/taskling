@@ -4,8 +4,12 @@
   "version": "0.0.0",
   "description": "Nurture your tasks!",
   "scripts": {
-    "launch": "pnpm i && docker compose down && docker compose build && docker compose up",
+    "dev": "pnpm i && docker compose down && docker compose build && docker compose up",
+    "lint": "biome check --write",
     "new-migration": "pnpm --filter=backend migrate create"
   },
-  "author": "Sabae Syndicate"
+  "author": "Sabae Syndicate",
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4"
+  }
 }
