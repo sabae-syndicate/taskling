@@ -16,7 +16,7 @@ const pgp = require('pg-promise')();
 // Database connection details;
 const cn = {
     host: 'taskling-db-1', // because we're using docker, we need to use the docker container name instead of localhost
-    port: 5432, // 5432 is the default;
+    port: 5433, // changed from the default which is 5432
     database: 'db_name',
     user: 'user',
     password: 'S5hs83nd9JJ92n!',
