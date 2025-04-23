@@ -1,3 +1,4 @@
+import path from "node:path";
 import { apiReference } from "@scalar/express-api-reference";
 import cors from "cors";
 import express, {
@@ -9,9 +10,8 @@ import helmet from "helmet";
 import morgan from "morgan";
 
 import { RegisterRoutes } from "./routes/routes";
-import { Errors } from "./types";
+import { Errors } from "./types/index";
 
-const path = require("node:path");
 const app = express();
 
 // Configure middleware
@@ -21,7 +21,7 @@ app.use(
 	}),
 );
 
-if (process.env.ENVIRONMENT === "dev") {
+if (process.env.ENV === "dev") {
 	// Log routes called during development
 	app.use(morgan("dev"));
 } else {
@@ -56,9 +56,17 @@ app.use(
 	}),
 );
 
+// Redirect home to docs
+app.get("/", (_, res) => {
+	res.redirect("/api/docs");
+});
+app.get("/api", (_, res) => {
+	res.redirect("/api/docs");
+});
+
 // Add error handler
 app.use((err: Error, _: Request, res: Response, next: NextFunction) => {
-	if (process.env.ENVIRONMENT === "dev") {
+	if (process.env.ENV === "dev") {
 		console.error(err);
 	}
 	if (err instanceof Errors.RouteError) {

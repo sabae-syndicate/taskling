@@ -4,14 +4,14 @@ import server from "./server";
 const PORT = normalizePort(process.env.PORT || "8000");
 
 server.listen(PORT, () => {
-	switch (process.env.ENVIRONMENT) {
+	switch (process.env.ENV) {
 		case "dev":
 			return console.info(
-				`\n   🌱 Taskling - Backend 🌱\nReady at http://localhost:${PORT}\n`,
+				`\n    🌱 Taskling - Backend 🌱\nReady at http://localhost:${PORT}/api\n`,
 			);
 		default:
 			return console.info(
-				`\n   🌱 Taskling - Backend 🌱\nReady at https://${process.env.HOST}:${PORT}\n`,
+				`\n    🌱 Taskling - Backend 🌱\nReady at https://${process.env.HOST}:${PORT}/api\n`,
 			);
 	}
 });
