@@ -20,7 +20,7 @@ RUN --mount=type=cache,target=/root/.local/share/pnpm pnpm fetch
 FROM build AS frontend
 WORKDIR /app
 RUN pnpm install --offline --filter=frontend
-EXPOSE 3000
+EXPOSE 5173
 CMD [ "pnpm", "run", "--filter=frontend", "dev" ]
 
 
