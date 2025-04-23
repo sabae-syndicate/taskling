@@ -42,7 +42,7 @@ services:
     build:
       context: .
       target: frontend
-    command: pnpm run --filter=frontend start
+    command: pnpm run --filter=frontend dev
     volumes:
       - /app/frontend/node_modules/
       - ./frontend:/app/frontend
