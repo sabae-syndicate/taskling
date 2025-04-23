@@ -17,7 +17,7 @@ const app = express();
 // Configure middleware
 app.use(
 	cors({
-		origin: ["localhost:3000"],
+		origin: [process.env.FE_URL || ""],
 	}),
 );
 
@@ -52,7 +52,7 @@ app.use(
 		theme: "deepSpace",
 		url: "/api/openapi.json",
 		cdn: "/api/scalar.js",
-		proxyUrl: "localhost:3000",
+		proxyUrl: process.env.FE_URL,
 	}),
 );
 

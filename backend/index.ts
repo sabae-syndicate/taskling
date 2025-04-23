@@ -4,7 +4,6 @@ import server from "./server";
 const PORT = normalizePort(process.env.PORT || "8000");
 
 server.listen(PORT, () => {
-	console.log(process.env);
 	switch (process.env.ENVIRONMENT) {
 		case "dev":
 			return console.info(
