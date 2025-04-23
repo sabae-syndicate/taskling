@@ -6,7 +6,8 @@
     "start": "pnpm exec nodemon --exec 'tsoa spec-and-routes && ts-node index.ts' -e js,ts",
     "build": "tsoa spec-and-routes && tsc",
     "deploy": "node dist/index.js",
-    "generate": "pnpm exec tsoa spec-and-routes"
+    "generate": "pnpm exec tsoa spec-and-routes",
+    "migrate": "node-pg-migrate"
   },
   "dependencies": {
     "@scalar/api-reference": "^1.28.7",
@@ -17,7 +18,8 @@
     "express": "~5.0.1",
     "helmet": "^8.1.0",
     "http-errors": "~1.6.3",
-    "morgan": "~1.9.1"
+    "morgan": "~1.9.1",
+    "pg-promise": "^11.13.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",
