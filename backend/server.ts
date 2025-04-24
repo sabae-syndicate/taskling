@@ -10,7 +10,7 @@ import helmet from "helmet";
 import morgan from "morgan";
 
 import { RegisterRoutes } from "./routes/routes";
-import { Errors } from "./types/index";
+import { Errors } from "./types";
 
 const app = express();
 
