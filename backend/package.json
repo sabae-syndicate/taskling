@@ -7,7 +7,8 @@
     "start": "pnpm migrate up && tsc-watch --noClear --onCompilationStarted 'tsoa spec-and-routes' --onSuccess 'bash -c \"tsc-alias && node dist/index.js\"'",
     "build": "tsoa spec-and-routes && tsc -b && tsc-alias",
     "launch": "node dist/index.js",
-    "migrate": "node-pg-migrate --migrations-dir db/migrations"
+    "migrate": "node-pg-migrate --migrations-dir db/migrations",
+    "check": "tsc --noEmit"
   },
   "dependencies": {
     "@scalar/api-reference": "^1.28.7",

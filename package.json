@@ -5,7 +5,7 @@
   "description": "Nurture your tasks!",
   "scripts": {
     "dev": "pnpm i && docker compose down && docker compose build && docker compose up",
-    "lint": "biome check --write",
+    "lint": "pnpm --filter=frontend check && pnpm --filter=backend check && biome check --write",
     "new-migration": "pnpm --filter=backend migrate create"
   },
   "author": "Sabae Syndicate",
