@@ -30,6 +30,6 @@
     "node-pg-migrate": "^7.9.1",
     "tsc-alias": "^1.8.15",
     "tsc-watch": "^6.2.1",
-    "typescript": "^5.8.2"
+    "typescript": "catalog:"
   }
 }
