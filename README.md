@@ -27,13 +27,11 @@ For a streamlined monorepo development environment, this project is configured t
 
 ### Getting Started
 
-Run the following to set up your dev environment:
+From the project's root directory, run the following to set up your dev environment:
+
 ```sh
 cp .vscode/settings.example.json .vscode/settings.json
 cp .env.sample .env
-rm -rf node_modules
-rm -rf backend/node_modules
-rm -rf frontend/node_modules
 ```
 
 If your IDE of choice is VS Code, copy the contents of `.vscode/settings.example.json` into a new file called `.vscode/settings.json` and install the recommended extensions. This will get you started with Biome, but you have the freedom to alter your workspace settings from there.

@@ -14,7 +14,8 @@
 	"vcs": {
 		"enabled": true,
 		"clientKind": "git",
-		"useIgnoreFile": true
+		"useIgnoreFile": true,
+		"defaultBranch": "main"
 	},
 	"files": {
 		"ignore": ["package.json", "pnpm-lock.yaml", "pnpm-workspace.yaml"]
