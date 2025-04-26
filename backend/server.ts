@@ -1,3 +1,4 @@
+import path from "node:path";
 import { apiReference } from "@scalar/express-api-reference";
 import cors from "cors";
 import express, {
@@ -11,20 +12,19 @@ import morgan from "morgan";
 import { RegisterRoutes } from "./routes/routes";
 import { Errors } from "./types";
 
-const path = require("node:path");
 const app = express();
 
 // Configure middleware
 app.use(
 	cors({
-		origin: ["localhost:3000"],
+		origin: [process.env.FE_URL || ""],
 	}),
 );
 
-// Show routes called in console during development
-if (process.env.ENVIRONMENT === "dev") {
+if (process.env.ENV === "dev") {
+	// Log routes called during development
 	app.use(morgan("dev"));
-} else if (process.env.ENVIRONMENT === "production") {
+} else {
 	// When ready to deploy, configure helmet
 	// https://helmetjs.github.io/
 	app.use(
@@ -52,13 +52,21 @@ app.use(
 		theme: "deepSpace",
 		url: "/api/openapi.json",
 		cdn: "/api/scalar.js",
-		proxyUrl: "localhost:3000",
+		proxyUrl: process.env.FE_URL,
 	}),
 );
 
+// Redirect home to docs
+app.get("/", (_, res) => {
+	res.redirect("/api/docs");
+});
+app.get("/api", (_, res) => {
+	res.redirect("/api/docs");
+});
+
 // Add error handler
 app.use((err: Error, _: Request, res: Response, next: NextFunction) => {
-	if (process.env.ENVIRONMENT === "dev") {
+	if (process.env.ENV === "dev") {
 		console.error(err);
 	}
 	if (err instanceof Errors.RouteError) {
@@ -67,8 +75,5 @@ app.use((err: Error, _: Request, res: Response, next: NextFunction) => {
 	}
 	return next(err);
 });
-
-
-
 
 export default app;

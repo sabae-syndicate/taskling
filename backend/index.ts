@@ -3,11 +3,18 @@ import server from "./server";
 // Get port from environment and store in Express.
 const PORT = normalizePort(process.env.PORT || "8000");
 
-server.listen(PORT, () =>
-	console.info(
-		`\n   🌱 Taskling - Backend 🌱\nReady at http://localhost:${PORT}\n`,
-	),
-);
+server.listen(PORT, () => {
+	switch (process.env.ENV) {
+		case "dev":
+			return console.info(
+				`\n    🌱 Taskling - Backend 🌱\nReady at http://localhost:${PORT}/api\n`,
+			);
+		default:
+			return console.info(
+				`\n    🌱 Taskling - Backend 🌱\nReady at https://${process.env.HOST}:${PORT}/api\n`,
+			);
+	}
+});
 
 /**
  * Normalize a port into a number or string.

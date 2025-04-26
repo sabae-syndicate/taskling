@@ -1,0 +1,23 @@
+{
+  "name": "taskling",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Nurture your tasks!",
+  "scripts": {
+    "dev": "pnpm i && docker compose down && docker compose build && docker compose up",
+    "lint": "pnpm --filter=frontend check && pnpm --filter=backend check && biome check",
+    "new-migration": "pnpm --filter=backend migrate create",
+    "prepare": "node .husky/install.mjs"
+  },
+  "author": "Sabae Syndicate",
+  "devDependencies": {
+    "@biomejs/biome": "catalog:",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.5.1"
+  },
+	"lint-staged": {
+		"*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}": [
+      "biome check --write --no-errors-on-unmatched"
+    ]
+	}
+}

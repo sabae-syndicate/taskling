@@ -2,12 +2,13 @@
   "name": "backend",
   "version": "0.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
-    "start": "npx nodemon --exec 'tsoa spec-and-routes && ts-node index.ts' -e js,ts",
-    "build": "tsoa spec-and-routes && tsc",
-    "deploy": "node dist/index.js",
-    "generate": "npx tsoa spec-and-routes",
-    "migrate": "node-pg-migrate"
+    "start": "pnpm migrate up && tsc-watch --noClear --onCompilationStarted 'tsoa spec-and-routes' --onSuccess 'bash -c \"tsc-alias && node dist/index.js\"'",
+    "build": "tsoa spec-and-routes && tsc -b && tsc-alias",
+    "launch": "node dist/index.js",
+    "migrate": "node-pg-migrate --migrations-dir db/migrations",
+    "check": "tsc --noEmit"
   },
   "dependencies": {
     "@scalar/api-reference": "^1.28.7",
@@ -18,9 +19,9 @@
     "express": "~5.0.1",
     "helmet": "^8.1.0",
     "http-errors": "~1.6.3",
-    "jade": "~1.11.0",
     "morgan": "~1.9.1",
-    "pg-promise": "^11.13.0"
+    "pg-promise": "^11.13.0",
+    "tsoa": "^6.6.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",
@@ -28,9 +29,8 @@
     "@types/morgan": "^1.9.9",
     "@types/node": "^22.13.11",
     "node-pg-migrate": "^7.9.1",
-    "nodemon": "^3.1.9",
-    "ts-node": "^10.9.2",
-    "tsoa": "^6.6.0",
-    "typescript": "^5.8.2"
+    "tsc-alias": "^1.8.15",
+    "tsc-watch": "^6.2.1",
+    "typescript": "catalog:"
   }
 }

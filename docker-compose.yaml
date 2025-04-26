@@ -1,3 +1,5 @@
+version: "3.8"
+
 volumes:
   database_volume:
 
@@ -7,32 +9,43 @@ services:
     volumes:
       - database_volume:/var/lib/postgresql/data
     environment:
-      - POSTGRES_DB=${POSTGRES_DB}
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - PGPORT=5433
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASS}
+      - PGPORT=${DB_PORT}
     ports:
-      - 15433:5433
+      - 15433:${DB_PORT}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d ${DB_NAME} -U ${DB_USER}"]
+      interval: 2s
+      timeout: 5s
+      retries: 5
 
   backend:
-    image: node:20
-    working_dir: /app
+    build:
+      context: .
+      target: backend
+    command: pnpm run --filter=backend start
+    depends_on:
+      db:
+        condition: service_healthy
     volumes:
-      - ./backend:/app
+      - /app/backend/node_modules/
+      - ./backend:/app/backend
     ports:
-      - "8000:8000"
-    command: bash -c "npm install && npm start"
+      - 8000:8000
+    env_file: .env
+    environment:
+      - DATABASE_URL=postgres://${DB_USER}:${DB_PASS}@${DB_HOST}:${DB_PORT}/${DB_NAME}
 
   frontend:
-    image: node:lts-bullseye
-    command: bash -c "npm install && npm run dev"
-    working_dir: /app
-    user: "1000:1000"
+    build:
+      context: .
+      target: frontend
+    command: pnpm run --filter=frontend dev
     volumes:
-      - ./frontend:/app
-    environment:
-      VITE_API_HOST: http://localhost:8000
-      BASE_URL: http://localhost:5173
-      HOST: 0.0.0.0
+      - /app/frontend/node_modules/
+      - ./frontend:/app/frontend
     ports:
-      - "5173:5173"
+      - 5173:5173
+    env_file: .env
